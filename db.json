@@ -1,0 +1,15 @@
+{
+    "wallet": {
+      "totalValue": 100000,
+      "tokens": [
+        { "symbol": "BTC", "amount": 0.5 },
+        { "symbol": "ETH", "amount": 10 },
+        { "symbol": "XRP", "amount": 5000 }
+      ]
+    },
+    "transactions": [
+      { "id": 1, "token": "BTC", "amount": 0.1, "type": "buy", "date": "2023-08-01" },
+      { "id": 2, "token": "ETH", "amount": 2, "type": "buy", "date": "2023-08-05" }
+    ]
+  }
+  

@@ -1,0 +1,24 @@
+<h2 class="title">Cryptocurrency Converter</h2>
+<div class="converter-form">
+  <div class="form-group">
+    <label for="fromCurrency">From: </label>
+    <select [(ngModel)]="fromCurrency" id="fromCurrency">
+      <option *ngFor="let crypto of cryptocurrencies" [value]="crypto.symbol">{{crypto.symbol}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="toCurrency">To: </label>
+    <select [(ngModel)]="toCurrency" id="toCurrency">
+      <option *ngFor="let crypto of cryptocurrencies" [value]="crypto.symbol">{{crypto.symbol}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="amount">Amount: </label>
+    <input type="number" [(ngModel)]="amount" id="amount">
+    <button class="convert-button" (click)="convert()">Convert</button>
+  </div>
+
+  <p class="result">Result: {{result}}</p>
+</div>

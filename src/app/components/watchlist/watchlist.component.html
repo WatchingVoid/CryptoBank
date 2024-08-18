@@ -1,0 +1,21 @@
+<h2 class="title">Cryptocurrency Watchlist</h2>
+<table class="watchlist-table">
+  <thead>
+    <tr>
+      <th (click)="sortTable('name')">Name</th>
+      <th (click)="sortTable('symbol')">Symbol</th>
+      <th (click)="sortTable('price')">Price</th>
+      <th (click)="sortTable('marketCap')">Market Cap</th>
+      <th (click)="sortTable('supply')">Supply</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let crypto of cryptocurrencies">
+      <td>{{crypto.name}}</td>
+      <td>{{crypto.symbol}}</td>
+      <td>{{crypto.price | currency}}</td>
+      <td>{{crypto.marketCap | number}}</td>
+      <td>{{crypto.supply | number}}</td>
+    </tr>
+  </tbody>
+</table>
