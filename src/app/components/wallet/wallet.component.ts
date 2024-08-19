@@ -1,20 +1,23 @@
-
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { SearchService } from 'src/app/service/search.service';
+import { WalletService } from 'src/app/service/wallet.service';
+import { CurrencyService } from 'src/app/service/currency.service';
+
+interface Token {
+  symbol: string;
+  amount: number;
+}
 
 interface Transaction {
-  id: number;
+  id?: number;
   token: string;
   amount: number;
-  type: string;
+  type: 'buy' | 'sell' | 'transfer';
   date: string;
 }
 
 interface Wallet {
   totalValue: number;
-  tokens: { symbol: string, amount: number }[];
+  tokens: Token[];
 }
 
 @Component({
@@ -24,34 +27,102 @@ interface Wallet {
 })
 export class WalletComponent implements OnInit {
   wallet: Wallet | null = null;
+  selectedToken: string = '';
   transactions: Transaction[] = [];
-  filteredTokens: any[] = [];
+  filteredTokens: Token[] = [];
+  filteredTransactions: Transaction[] = [];
+  selectedTokenBalance: number = 0;
+  currentCurrency: string = 'USD';
 
-  constructor(private http: HttpClient, private searchService: SearchService) {}
+  constructor(
+    private walletService: WalletService,
+    private currencyService: CurrencyService
+  ) {}
 
   ngOnInit(): void {
-    this.fetchWallet().subscribe(data => {
-      this.wallet = data;
-      this.filteredTokens = this.wallet.tokens;
+    this.walletService.getWallet().subscribe(wallet => {
+      this.wallet = wallet;
+      this.filteredTokens = wallet.tokens;
+      this.selectedToken = wallet.tokens[0]?.symbol || '';
+      this.updateSelectedTokenBalance();
+      this.loadTransactions(this.selectedToken);
     });
-    this.fetchTransactions().subscribe(data => this.transactions = data);
+
+    this.currencyService.currentCurrency$.subscribe(currency => {
+      this.currentCurrency = currency;
+    });
   }
 
-  fetchWallet(): Observable<Wallet> {
-    return this.http.get<Wallet>('http://localhost:3000/wallet');
-  }
-
-  fetchTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>('http://localhost:3000/transactions');
-  }
-
-  onSearchChange(searchTerm: string) {
+  onSearchTokens(searchTerm: string): void {
     if (this.wallet) {
-      this.filteredTokens = this.searchService.filterItems(
-        this.wallet.tokens, 
-        searchTerm, 
-        ['symbol']
+      this.filteredTokens = this.wallet.tokens.filter(token =>
+        token.symbol.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
+  }
+
+  onSearchTransactions(searchTerm: string): void {
+    this.filteredTransactions = this.transactions.filter(transaction =>
+      transaction.token.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      transaction.type.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  addFunds(amount: number): void {
+    if (this.wallet) {
+      const token = this.wallet.tokens.find(t => t.symbol === this.selectedToken);
+      if (token) {
+        token.amount += amount;
+        this.wallet.totalValue += amount;
+        this.walletService.updateWallet(this.wallet).subscribe(() => {
+          this.walletService.addTransaction({
+            token: this.selectedToken,
+            amount: amount,
+            type: 'buy',
+            date: new Date().toISOString()
+          }).subscribe(() => this.loadTransactions(this.selectedToken));
+        });
+      }
+    }
+  }
+
+  sendFunds(amount: number): void {
+    if (this.wallet) {
+      const token = this.wallet.tokens.find(t => t.symbol === this.selectedToken);
+      if (token && token.amount >= amount) {
+        token.amount -= amount;
+        this.wallet.totalValue -= amount;
+        this.walletService.updateWallet(this.wallet).subscribe(() => {
+          this.walletService.addTransaction({
+            token: this.selectedToken,
+            amount: amount,
+            type: 'sell',
+            date: new Date().toISOString()
+          }).subscribe(() => this.loadTransactions(this.selectedToken));
+        });
+      }
+    }
+  }
+
+  loadTransactions(token: string): void {
+    this.walletService.getTransactions(token).subscribe(transactions => {
+      this.transactions = transactions;
+      this.filteredTransactions = transactions;
+    });
+  }
+
+  updateSelectedTokenBalance(): void {
+    const token = this.wallet?.tokens.find(t => t.symbol === this.selectedToken);
+    this.selectedTokenBalance = token?.amount || 0;
+  }
+
+  convertToCurrentCurrency(value: number): number {
+    return this.currencyService.convertValue(value, this.currentCurrency);
+  }
+
+  onTokenSelect(token: string): void {
+    this.selectedToken = token;
+    this.updateSelectedTokenBalance();
+    this.loadTransactions(token);
   }
 }

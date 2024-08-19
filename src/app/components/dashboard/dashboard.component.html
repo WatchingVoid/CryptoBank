@@ -1,0 +1,30 @@
+<!-- <div class="dashboard-actions">
+  <h2>Dashboard</h2>
+  
+  <div>
+    <label for="actionType">Action:</label>
+    <select id="actionType" [(ngModel)]="actionType">
+      <option value="buy">Buy</option>
+      <option value="sell">Sell</option>
+      <option value="convert">Convert</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="cryptoCurrency">Currency:</label>
+    <select id="cryptoCurrency" [(ngModel)]="cryptoCurrency">
+      <option *ngFor="let token of wallet?.tokens" [value]="token.symbol">{{ token.symbol }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" [ngModel]="amount" (input)="onAmountChange($event)">
+  </div>
+
+  <button (click)="executeAction()">Execute</button>
+
+  <div class="result" *ngIf="result">
+    <p>Result: {{ result }}</p>
+  </div>
+</div> -->

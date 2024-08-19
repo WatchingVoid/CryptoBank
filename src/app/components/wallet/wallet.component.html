@@ -1,27 +1,39 @@
-<h2 class="title">Wallet</h2>
-<div class="wallet-summary" *ngIf="wallet">
-  <p>Total Portfolio Value: <span>{{wallet.totalValue | currency}}</span></p>
-  <div class="token-list">
-    <div *ngFor="let token of wallet.tokens" class="token-item">
-      <p>{{token.symbol}}: <span>{{token.amount | number:'1.2-2'}} USD</span></p>
-    </div>
-  </div>
-</div>
+<div class="wallet">
+  <h2>Wallet</h2>
+  <p>Total Portfolio Value: {{ convertToCurrentCurrency(wallet?.totalValue || 0) | currency:currentCurrency:'symbol':'1.2-2' }}</p>
 
-<h3 class="title">Last Transactions</h3>
-<ul class="transaction-list">
-  <li *ngFor="let transaction of transactions" class="transaction-item">
-    {{transaction.date}}: <span>{{transaction.amount}}</span> {{transaction.token}} ({{transaction.type}})
-  </li>
-</ul>
+  <app-search (searchChange)="onSearchTokens($event)"></app-search>
 
-<h2 class="title">Wallet</h2>
-<app-search (searchChange)="onSearchChange($event)"></app-search>
-<div class="wallet-summary" *ngIf="wallet">
-  <p>Total Portfolio Value: <span>{{wallet.totalValue | currency}}</span></p>
-  <div class="token-list">
-    <div *ngFor="let token of filteredTokens" class="token-item">
-      <p>{{token.symbol}}: <span>{{token.amount | number:'1.2-2'}} USD</span></p>
-    </div>
+  <div>
+    <label for="tokenSelect">Select Token:</label>
+    <select id="tokenSelect" [(ngModel)]="selectedToken" (change)="onTokenSelect(selectedToken)">
+      <option *ngFor="let token of filteredTokens" [value]="token.symbol">{{ token.symbol }}</option>
+    </select>
   </div>
+
+  <div>
+    <h3>{{ selectedToken }} Balance: {{ selectedTokenBalance | number:'1.2-2' }}</h3>
+  </div>
+
+  <div>
+    <label for="addFunds">Add Funds:</label>
+    <input type="number" id="addFunds" #addAmount>
+    <button (click)="addFunds(addAmount.valueAsNumber)">Add</button>
+  </div>
+
+  <div>
+    <label for="sendFunds">Send Funds:</label>
+    <input type="number" id="sendFunds" #sendAmount>
+    <button (click)="sendFunds(sendAmount.valueAsNumber)">Send</button>
+  </div>
+
+  <h3>Recent Transactions</h3>
+  
+  <app-search (searchChange)="onSearchTransactions($event)"></app-search>
+
+  <ul>
+    <li *ngFor="let transaction of filteredTransactions">
+      {{ transaction.date }} - {{ transaction.type | titlecase }} {{ transaction.amount }} {{ transaction.token }}
+    </li>
+  </ul>
 </div>

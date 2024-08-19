@@ -20,3 +20,23 @@
     </tr>
   </tbody>
 </table>
+<!-- <app-search (searchChange)="onSearchChange($event)"></app-search>
+
+<table>
+  <thead>
+    <tr>
+      <th (click)="onSortColumn('name')">Name</th>
+      <th (click)="onSortColumn('symbol')">Symbol</th>
+      <th (click)="onSortColumn('price')">Price ({{ currentCurrency }})</th>
+      <th (click)="onSortColumn('marketCap')">Market Cap ({{ currentCurrency }})</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let crypto of filteredCryptocurrencies">
+      <td>{{ crypto.name }}</td>
+      <td>{{ crypto.symbol }}</td>
+      <td>{{ convertValue(crypto.price) | currency:currentCurrency:'symbol':'1.2-2' }}</td>
+      <td>{{ convertValue(crypto.marketCap) | currency:currentCurrency:'symbol':'1.0-0' }}</td>
+    </tr>
+  </tbody>
+</table> -->

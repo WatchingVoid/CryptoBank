@@ -10,6 +10,7 @@ import { ConverterModule } from './components/converter/converter.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { ThemeService } from './service/theme.service';
 
 
 @NgModule({
@@ -23,9 +24,9 @@ import { SharedModule } from './shared/shared.module';
     CommonModule,
     HttpClientModule,
     SharedModule,
-    WalletModule,
-    WatchlistModule,
     ConverterModule,
+    WatchlistModule,
+    WalletModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
