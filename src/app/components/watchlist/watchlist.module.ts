@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { WatchlistRoutingModule } from './watchlist-routing.module';
 import { WatchlistComponent } from './watchlist.component';
+import { SharedModule } from "../../shared/shared.module";
 
 
 @NgModule({
@@ -11,8 +12,9 @@ import { WatchlistComponent } from './watchlist.component';
   ],
   imports: [
     CommonModule,
-    WatchlistRoutingModule
-  ],
+    WatchlistRoutingModule,
+    SharedModule
+],
   exports:[
     WatchlistComponent,
   ]

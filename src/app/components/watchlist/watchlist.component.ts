@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CryptoService } from 'src/app/service/crypto.service';
+import { SearchService } from 'src/app/service/search.service';
 
 interface Cryptocurrency {
   id: number;
@@ -17,10 +18,11 @@ interface Cryptocurrency {
 })
 export class WatchlistComponent implements OnInit {
   cryptocurrencies: Cryptocurrency[] = [];
+  filteredCryptocurrencies: any[] = [];
   sortColumn: any = 'marketCap';
   sortDirection: boolean = false; // false: descending, true: ascending
 
-  constructor(private cryptoService: CryptoService) {}
+  constructor(private cryptoService: CryptoService, private searchService: SearchService) {}
 
   ngOnInit(): void {
     this.cryptoService.getCryptoListings().subscribe(
@@ -33,6 +35,7 @@ export class WatchlistComponent implements OnInit {
           marketCap: item.quote.USD.market_cap,
           supply: item.total_supply
         }));
+        this.filteredCryptocurrencies = this.cryptocurrencies;
       },
       (error) => {
         console.error('Ошибка при загрузке данных:', error);
@@ -40,7 +43,6 @@ export class WatchlistComponent implements OnInit {
     );
   }
   
-
   sortTable(column: keyof Cryptocurrency): void {
     this.sortDirection = !this.sortDirection;
     const direction = this.sortDirection ? 1 : -1;
@@ -55,4 +57,13 @@ export class WatchlistComponent implements OnInit {
       }
     });
   }
+  
+  onSearchChange(searchTerm: string) {
+    this.filteredCryptocurrencies = this.searchService.filterItems(
+      this.cryptocurrencies, 
+      searchTerm, 
+      ['name', 'symbol']
+    );
+  }
 }
+

@@ -9,6 +9,8 @@ import { WatchlistModule } from './components/watchlist/watchlist.module';
 import { ConverterModule } from './components/converter/converter.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
+    WalletModule,
+    WatchlistModule,
+    ConverterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

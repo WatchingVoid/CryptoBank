@@ -14,3 +14,14 @@
     {{transaction.date}}: <span>{{transaction.amount}}</span> {{transaction.token}} ({{transaction.type}})
   </li>
 </ul>
+
+<h2 class="title">Wallet</h2>
+<app-search (searchChange)="onSearchChange($event)"></app-search>
+<div class="wallet-summary" *ngIf="wallet">
+  <p>Total Portfolio Value: <span>{{wallet.totalValue | currency}}</span></p>
+  <div class="token-list">
+    <div *ngFor="let token of filteredTokens" class="token-item">
+      <p>{{token.symbol}}: <span>{{token.amount | number:'1.2-2'}} USD</span></p>
+    </div>
+  </div>
+</div>
