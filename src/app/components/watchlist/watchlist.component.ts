@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CryptoService } from 'src/app/service/crypto.service';
 import { SearchService } from 'src/app/service/search.service';
+import { CurrencyService } from 'src/app/service/currency.service'; 
+import { KENDO_CHARTS} from '@progress/kendo-angular-charts';
+import { KENDO_SPARKLINE } from '@progress/kendo-angular-charts';
 
 interface Cryptocurrency {
   id: number;
@@ -18,11 +21,16 @@ interface Cryptocurrency {
 })
 export class WatchlistComponent implements OnInit {
   cryptocurrencies: Cryptocurrency[] = [];
-  filteredCryptocurrencies: any[] = [];
-  sortColumn: any = 'marketCap';
+  filteredCryptocurrencies: Cryptocurrency[] = [];
+  sortColumn: keyof Cryptocurrency = 'marketCap';
   sortDirection: boolean = false; // false: descending, true: ascending
-
-  constructor(private cryptoService: CryptoService, private searchService: SearchService) {}
+  currentCurrency: string = 'USD';
+  data = [1,2,2,3,4,,5,5,6,7,7];
+  constructor(
+    private cryptoService: CryptoService, 
+    private searchService: SearchService,
+    private currencyService: CurrencyService // Инъекция CurrencyService
+  ) {}
 
   ngOnInit(): void {
     this.cryptoService.getCryptoListings().subscribe(
@@ -36,109 +44,57 @@ export class WatchlistComponent implements OnInit {
           supply: item.total_supply
         }));
         this.filteredCryptocurrencies = this.cryptocurrencies;
+        this.sortCryptocurrencies();
       },
       (error) => {
         console.error('Ошибка при загрузке данных:', error);
       }
     );
+
+    // Подписка на изменения валюты
+    this.currencyService.currentCurrency$.subscribe(currency => {
+      this.currentCurrency = currency;
+      this.sortCryptocurrencies(); // Пересортировка данных при изменении валюты
+    });
   }
   
   sortTable(column: keyof Cryptocurrency): void {
-    this.sortDirection = !this.sortDirection;
+    if (this.sortColumn === column) {
+      this.sortDirection = !this.sortDirection;
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = true;
+    }
+    this.sortCryptocurrencies();
+  }
+
+  sortCryptocurrencies(): void {
     const direction = this.sortDirection ? 1 : -1;
-  
-    this.cryptocurrencies.sort((a, b) => {
-      if (a[column] > b[column]) {
+
+    this.filteredCryptocurrencies.sort((a, b) => {
+      const valueA = this.convertValue(a[this.sortColumn]);
+      const valueB = this.convertValue(b[this.sortColumn]);
+
+      if (valueA > valueB) {
         return direction;
-      } else if (a[column] < b[column]) {
+      } else if (valueA < valueB) {
         return -direction;
       } else {
         return 0;
       }
     });
   }
+
+  convertValue(value:any): number {
+    return this.currencyService.convertValue(value, this.currentCurrency);
+  }
   
-  onSearchChange(searchTerm: string) {
+  onSearchChange(searchTerm: string): void {
     this.filteredCryptocurrencies = this.searchService.filterItems(
       this.cryptocurrencies, 
       searchTerm, 
       ['name', 'symbol']
     );
+    this.sortCryptocurrencies(); // Обновление сортировки после поиска
   }
 }
-
-// import { Component, OnInit } from '@angular/core';
-// import { CurrencyService } from '../shared/currency.service';
-// import { CryptoService } from '../shared/crypto.service';
-
-// interface Cryptocurrency {
-//   name: string;
-//   symbol: string;
-//   price: number; // Цена в USD
-//   marketCap: number; // Рыночная капитализация в USD
-// }
-
-// @Component({
-//   selector: 'app-watchlist',
-//   templateUrl: './watchlist.component.html',
-//   styleUrls: ['./watchlist.component.scss']
-// })
-// export class WatchlistComponent implements OnInit {
-//   cryptocurrencies: Cryptocurrency[] = [];
-//   filteredCryptocurrencies: Cryptocurrency[] = [];
-//   currentCurrency: string = 'USD';
-//   sortColumn: keyof Cryptocurrency = 'marketCap';
-//   sortDirection: boolean = false; // false: descending, true: ascending
-
-//   constructor(
-//     private cryptoService: CryptoService,
-//     private currencyService: CurrencyService
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.cryptoService.getCryptoListings().subscribe(data => {
-//       this.cryptocurrencies = data;
-//       this.filteredCryptocurrencies = data;
-//       this.sortCryptocurrencies();
-//     });
-
-//     this.currencyService.currentCurrency$.subscribe(currency => {
-//       this.currentCurrency = currency;
-//     });
-//   }
-
-//   convertValue(value: number): number {
-//     return this.currencyService.convertValue(value, this.currentCurrency);
-//   }
-
-//   onSearchChange(searchTerm: string): void {
-//     this.filteredCryptocurrencies = this.cryptocurrencies.filter(crypto =>
-//       crypto.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       crypto.symbol.toLowerCase().includes(searchTerm.toLowerCase())
-//     );
-//     this.sortCryptocurrencies();
-//   }
-
-//   sortCryptocurrencies(): void {
-//     const direction = this.sortDirection ? 1 : -1;
-//     this.filteredCryptocurrencies.sort((a, b) => {
-//       if (a[this.sortColumn] > b[this.sortColumn]) {
-//         return direction;
-//       } else if (a[this.sortColumn] < b[this.sortColumn]) {
-//         return -direction;
-//       } else {
-//         return 0;
-//       }
-//     });
-//   }
-
-//   onSortColumn(column: keyof Cryptocurrency): void {
-//     if (this.sortColumn === column) {
-//       this.sortDirection = !this.sortDirection;
-//     } else {
-//       this.sortColumn = column;
-//       this.sortDirection = false;
-//     }
-//     this.sortCryptocurrencies();
-//   }
-// }

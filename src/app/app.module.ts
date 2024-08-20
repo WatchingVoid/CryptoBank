@@ -11,7 +11,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { ThemeService } from './service/theme.service';
-
+import { DashboardModule } from './components/dashboard/dashboard.module';
+import { ChartsModule } from '@progress/kendo-angular-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,9 @@ import { ThemeService } from './service/theme.service';
     ConverterModule,
     WatchlistModule,
     WalletModule,
+    DashboardModule,
+    ChartsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

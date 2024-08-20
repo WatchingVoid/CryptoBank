@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { WatchlistRoutingModule } from './watchlist-routing.module';
 import { WatchlistComponent } from './watchlist.component';
 import { SharedModule } from "../../shared/shared.module";
-
-
+import { KENDO_CHARTS, SparklineComponent} from '@progress/kendo-angular-charts';
+import { KENDO_SPARKLINE } from '@progress/kendo-angular-charts';
+import { ChartsModule } from "@progress/kendo-angular-charts";
 @NgModule({
   declarations: [
     WatchlistComponent
@@ -13,7 +14,9 @@ import { SharedModule } from "../../shared/shared.module";
   imports: [
     CommonModule,
     WatchlistRoutingModule,
-    SharedModule
+    SharedModule,
+    SparklineComponent,
+    ChartsModule
 ],
   exports:[
     WatchlistComponent,

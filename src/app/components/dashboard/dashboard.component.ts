@@ -13,20 +13,24 @@ interface Wallet {
 })
 export class DashboardComponent implements OnInit {
   wallet: Wallet | null = null;
-  actionType: string = 'buy';
-  cryptoCurrency: string = 'BTC';
-  amount: number = 0;
+  actionType: string = "buy";
+  cryptoCurrency: string = "BTC";
+  amount: string = '0';
   result: string | null = null;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<Wallet>('http://localhost:3000/wallet').subscribe(data => this.wallet = data);
+    this.http.get<Wallet>('http://localhost:3000/wallet').subscribe(data =>{
+      this.wallet = data
+      console.log(data)
+  });
+    console.log(this.actionType,this.cryptoCurrency,this.amount,this.result)
   }
 
   onAmountChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    this.amount = parseFloat(inputElement.value);
+    this.amount = inputElement.value;
   }
 
   executeAction(): void {

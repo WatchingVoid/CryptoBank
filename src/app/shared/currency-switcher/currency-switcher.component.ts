@@ -7,7 +7,7 @@ import { CurrencyService } from 'src/app/service/currency.service';
   styleUrls: ['./currency-switcher.component.scss']
 })
 export class CurrencySwitcherComponent {
-  currencies = ['USD', 'EUR', 'GBP'];
+  currencies = ['RUB','USD', 'EUR', 'GBP'];
   selectedCurrency: string;
 
   constructor(private currencyService: CurrencyService) {

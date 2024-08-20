@@ -21,3 +21,9 @@ body.dark-theme {
   background-color: #555;
   color: #e0e0e0;
 }
+body>div {
+  visibility: hidden;
+}
+div[kendowatermarkoverlay] {
+  background-image: none !important;
+}

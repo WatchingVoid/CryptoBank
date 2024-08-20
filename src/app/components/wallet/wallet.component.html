@@ -17,23 +17,24 @@
 
   <div>
     <label for="addFunds">Add Funds:</label>
-    <input type="number" id="addFunds" #addAmount>
+    <input type="number" id="addFunds" class="funds" #addAmount>
     <button (click)="addFunds(addAmount.valueAsNumber)">Add</button>
   </div>
 
   <div>
     <label for="sendFunds">Send Funds:</label>
-    <input type="number" id="sendFunds" #sendAmount>
+    <input type="number" id="sendFunds" class="funds" #sendAmount>
     <button (click)="sendFunds(sendAmount.valueAsNumber)">Send</button>
   </div>
 
   <h3>Recent Transactions</h3>
   
   <app-search (searchChange)="onSearchTransactions($event)"></app-search>
-
-  <ul>
-    <li *ngFor="let transaction of filteredTransactions">
-      {{ transaction.date }} - {{ transaction.type | titlecase }} {{ transaction.amount }} {{ transaction.token }}
-    </li>
-  </ul>
+  <div class="block-transaction">
+    <ul>
+      <li *ngFor="let transaction of filteredTransactions">
+        {{ transaction.date | date:"dd-MM-yyyy" }} - {{ transaction.type | titlecase }} {{ transaction.amount }} {{ transaction.token }}
+      </li>
+    </ul>
+  </div>
 </div>

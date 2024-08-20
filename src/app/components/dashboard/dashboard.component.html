@@ -1,4 +1,4 @@
-<!-- <div class="dashboard-actions">
+<div class="dashboard-actions">
   <h2>Dashboard</h2>
   
   <div>
@@ -19,7 +19,7 @@
 
   <div>
     <label for="amount">Amount:</label>
-    <input type="number" id="amount" [ngModel]="amount" (input)="onAmountChange($event)">
+    <input type="text" id="amount" [(ngModel)]="amount" (input)="onAmountChange($event)"/>
   </div>
 
   <button (click)="executeAction()">Execute</button>
@@ -27,4 +27,4 @@
   <div class="result" *ngIf="result">
     <p>Result: {{ result }}</p>
   </div>
-</div> -->
+</div>
