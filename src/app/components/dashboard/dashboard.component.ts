@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ThemeService } from 'src/app/service/theme.service';
 
 interface Wallet {
   totalValue: number;
@@ -17,15 +18,18 @@ export class DashboardComponent implements OnInit {
   cryptoCurrency: string = "BTC";
   amount: string = '0';
   result: string | null = null;
+  theme: string = 'light';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.http.get<Wallet>('http://localhost:3000/wallet').subscribe(data =>{
       this.wallet = data
       console.log(data)
   });
-    console.log(this.actionType,this.cryptoCurrency,this.amount,this.result)
+    this.themeService.getTheme().subscribe(theme => {
+      this.theme = theme;
+    });
   }
 
   onAmountChange(event: Event): void {

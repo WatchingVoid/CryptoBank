@@ -1,10 +1,4 @@
-.title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #4CAF50;
-}
-
+/* Стили для светлой темы */
 .watchlist-table {
   width: 100%;
   border-collapse: collapse;
@@ -14,36 +8,47 @@
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
-  thead {
-    background-color: #4CAF50;
+  th {
+    background-color: #4CAF50; /* Зеленый */
     color: #fff;
-
-    th {
-      padding: 15px;
-      cursor: pointer;
-      text-align: left;
-    }
+    padding: 15px;
+    cursor: pointer;
+    text-align: left;
   }
 
-  tbody {
-    tr {
-      &:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-
-      &:hover {
-        background-color: #e1e1e1;
-      }
-
-      td {
-        padding: 15px;
-        text-align: left;
-      }
-    }
-  }
-  .charts{
-    height: 100px !important;
-    width: 100px !important;
+  td {
+    padding: 15px;
+    text-align: left;
   }
 
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tbody tr:hover {
+    background-color: #e1e1e1;
+  }
+}
+
+/* Стили для темной темы */
+body.dark-theme .watchlist-table {
+  background-color: #333333;
+  color: #ffffff;
+
+  th {
+    background-color: #7B1FA2; /* Фиолетовый */
+    color: #ffffff;
+  }
+
+  td {
+    color: #ffffff;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #444444;
+  }
+
+  tbody tr:hover {
+    background-color: #555555;
+  }
 }

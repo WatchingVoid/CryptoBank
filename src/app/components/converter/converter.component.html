@@ -1,5 +1,5 @@
 <h2 class="title">Cryptocurrency Converter</h2>
-<div class="converter-form">
+<div class="converter-form" [ngClass]="{'dark-theme': theme === 'dark'}">
   <div class="form-group">
     <label for="fromCurrency">From: </label>
     <select [(ngModel)]="fromCurrency" id="fromCurrency">

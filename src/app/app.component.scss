@@ -65,3 +65,35 @@
   background-color: #45a049;
   border-radius: 10px;
 }
+
+*{
+  overflow: hidden;
+}
+/* Светлая тема */
+body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.header {
+  background-color: #f8f8f8;
+  color: #333333;
+}
+
+/* Темная тема */
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-theme .header {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+body.dark-theme .main-layout {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+/* Добавьте стили для других элементов */

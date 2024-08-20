@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CryptoService } from 'src/app/service/crypto.service';
+import { ThemeService } from 'src/app/service/theme.service';
 
 @Component({
   selector: 'app-converter',
@@ -12,8 +13,9 @@ export class ConverterComponent implements OnInit {
   toCurrency: string = 'ETH';
   amount: number = 1;
   result: number = 0;
+  theme: string = 'light';
 
-  constructor(private cryptoService: CryptoService) {}
+  constructor(private cryptoService: CryptoService,  private themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.cryptoService.getCryptoListings().subscribe(data => {
@@ -21,6 +23,9 @@ export class ConverterComponent implements OnInit {
         symbol: item.symbol,
         price: item.quote.USD.price
       }));
+    });
+    this.themeService.getTheme().subscribe(theme => {
+      this.theme = theme;
     });
   }
 

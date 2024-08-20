@@ -1,18 +1,21 @@
 <header class="header">
   <app-currency-switcher></app-currency-switcher>
+  <button (click)="toggleTheme()">Toggle Theme</button>
 </header>
 
 <div class="main-layout">
   <div class="sidebar">
-    <button routerLink="/dashboard">Dashboard</button>
-    <button routerLink="/wallet">Wallet</button>
+    <button [routerLink]="[{ outlets: { panel: ['dashboard'] } }]" routerLinkActive="active">Dashboard</button>
+    <button [routerLink]="[{ outlets: { panel: ['wallet'] } }]" routerLinkActive="active">Wallet</button>
+    
   </div>
 
   <div class="content scroll">
-    <app-watchlist></app-watchlist>
+    <router-outlet></router-outlet>  <!-- WatchlistComponent будет отображаться здесь -->
   </div>
 
   <div class="panel">
-    <router-outlet></router-outlet>
+    <router-outlet name="panel"></router-outlet> <!-- Правый outlet для Dashboard и Wallet -->
   </div>
+  
 </div>

@@ -45,4 +45,36 @@ export class CryptoService {
       }
     });
   }
+
+  // Функция для получения исторических данных о ценах криптовалюты
+  getCryptoHistory(symbol: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'X-CMC_PRO_API_KEY': this.apiKey
+    });
+  
+    const endpoint = `${this.apiUrl}/cryptocurrency/ohlcv/historical`;
+  
+    return this.http.get(endpoint, {
+      headers,
+      params: {
+        symbol: symbol,
+        time_start: this.getStartTime(),
+        time_end: this.getEndTime(),
+        interval: 'daily'
+      }
+    });
+  }
+  
+
+    // Функция для получения текущего времени
+  getEndTime(): string {
+    return Math.floor(Date.now() / 1000).toString();
+  }
+  
+    // Функция для получения времени за 30 дней назад
+  getStartTime(): string {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 30);
+    return Math.floor(currentDate.getTime() / 1000).toString();
+  }
 }

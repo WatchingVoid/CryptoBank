@@ -1,23 +1,30 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private isDarkTheme = false;
+  private theme = new BehaviorSubject<string>('light'); // Светлая тема по умолчанию
 
-  toggleTheme() {
-    this.isDarkTheme = !this.isDarkTheme;
-    this.applyTheme();
+  constructor() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    this.theme.next(savedTheme);
+    this.applyTheme(savedTheme);
   }
 
-  private applyTheme() {
-    if (this.isDarkTheme) {
-      document.body.classList.add('dark-theme');
-      document.body.classList.remove('light-theme');
-    } else {
-      document.body.classList.add('light-theme');
-      document.body.classList.remove('dark-theme');
-    }
+  toggleTheme(): void {
+    const newTheme = this.theme.value === 'light' ? 'dark' : 'light';
+    this.theme.next(newTheme);
+    this.applyTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
+
+  getTheme(): BehaviorSubject<string> {
+    return this.theme;
+  }
+
+  private applyTheme(theme: string): void {
+    document.body.classList.toggle('dark-theme', theme === 'dark');
   }
 }

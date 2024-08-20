@@ -4,6 +4,7 @@ import { SearchService } from 'src/app/service/search.service';
 import { CurrencyService } from 'src/app/service/currency.service'; 
 import { KENDO_CHARTS} from '@progress/kendo-angular-charts';
 import { KENDO_SPARKLINE } from '@progress/kendo-angular-charts';
+import { ThemeService } from 'src/app/service/theme.service';
 
 interface Cryptocurrency {
   id: number;
@@ -12,6 +13,7 @@ interface Cryptocurrency {
   price: number;
   marketCap: number;
   supply: number;
+  priceHistory: number[];
 }
 
 @Component({
@@ -26,10 +28,13 @@ export class WatchlistComponent implements OnInit {
   sortDirection: boolean = false; // false: descending, true: ascending
   currentCurrency: string = 'USD';
   data = [1,2,2,3,4,,5,5,6,7,7];
+  theme: string = 'light';
+
   constructor(
     private cryptoService: CryptoService, 
     private searchService: SearchService,
-    private currencyService: CurrencyService // Инъекция CurrencyService
+    private currencyService: CurrencyService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
@@ -41,8 +46,16 @@ export class WatchlistComponent implements OnInit {
           symbol: item.symbol,
           price: item.quote.USD.price,
           marketCap: item.quote.USD.market_cap,
-          supply: item.total_supply
+          supply: item.total_supply,
+          priceHistory: [] // Изначально пустой массив для хранения данных о цене
         }));
+
+        // this.cryptocurrencies.forEach((crypto) => {
+        //   this.cryptoService.getCryptoHistory(crypto.symbol).subscribe(historyData => {
+        //     crypto.priceHistory = historyData.data.quotes.map((quote: any) => quote.close);
+        //   });
+        // });
+
         this.filteredCryptocurrencies = this.cryptocurrencies;
         this.sortCryptocurrencies();
       },
@@ -51,10 +64,12 @@ export class WatchlistComponent implements OnInit {
       }
     );
 
-    // Подписка на изменения валюты
     this.currencyService.currentCurrency$.subscribe(currency => {
       this.currentCurrency = currency;
       this.sortCryptocurrencies(); // Пересортировка данных при изменении валюты
+    });
+    this.themeService.getTheme().subscribe(theme => {
+      this.theme = theme;
     });
   }
   

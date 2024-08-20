@@ -1,4 +1,4 @@
-<div class="wallet">
+<div class="wallet" [ngClass]="{'dark-theme': theme === 'dark'}">
   <h2>Wallet</h2>
   <p>Total Portfolio Value: {{ convertToCurrentCurrency(wallet?.totalValue || 0) | currency:currentCurrency:'symbol':'1.2-2' }}</p>
 
@@ -27,6 +27,10 @@
     <button (click)="sendFunds(sendAmount.valueAsNumber)">Send</button>
   </div>
 
+  <div>
+    <button (click)="openConverter()">Open Converter</button>
+  </div>
+
   <h3>Recent Transactions</h3>
   
   <app-search (searchChange)="onSearchTransactions($event)"></app-search>
@@ -36,5 +40,13 @@
         {{ transaction.date | date:"dd-MM-yyyy" }} - {{ transaction.type | titlecase }} {{ transaction.amount }} {{ transaction.token }}
       </li>
     </ul>
+  </div>
+
+  <!-- Модальное окно для конвертера -->
+  <div class="modal" *ngIf="isConverterOpen">
+    <div class="modal-content">
+      <app-converter></app-converter>
+      <button class="close-button" (click)="closeConverter()">Close</button>
+    </div>
   </div>
 </div>

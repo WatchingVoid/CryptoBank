@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletService } from 'src/app/service/wallet.service';
 import { CurrencyService } from 'src/app/service/currency.service';
+import { ThemeService } from 'src/app/service/theme.service';
 
 interface Token {
   symbol: string;
@@ -33,10 +34,13 @@ export class WalletComponent implements OnInit {
   filteredTransactions: Transaction[] = [];
   selectedTokenBalance: number = 0;
   currentCurrency: string = 'USD';
+  isConverterOpen: boolean = false;
+  theme: string = 'light';
 
   constructor(
     private walletService: WalletService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +55,20 @@ export class WalletComponent implements OnInit {
     this.currencyService.currentCurrency$.subscribe(currency => {
       this.currentCurrency = currency;
     });
+    this.themeService.getTheme().subscribe(theme => {
+      this.theme = theme;
+    });
   }
+
+    // Открытие модального окна
+    openConverter(): void {
+      this.isConverterOpen = true;
+    }
+  
+    // Закрытие модального окна
+    closeConverter(): void {
+      this.isConverterOpen = false;
+    }
 
   onSearchTokens(searchTerm: string): void {
     if (this.wallet) {

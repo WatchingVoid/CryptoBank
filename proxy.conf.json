@@ -6,6 +6,8 @@
     "pathRewrite": {
       "^/api": ""
     },
-    "logLevel": "debug"
+    "headers": {
+      "X-CMC_PRO_API_KEY": "b10cf512-d612-4a88-8603-53edc21c7905"
+    }
   }
 }

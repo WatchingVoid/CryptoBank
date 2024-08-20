@@ -9,21 +9,18 @@
       <th (click)="sortTable('price')">Price ({{ currentCurrency }})</th>
       <th (click)="sortTable('marketCap')">Market Cap ({{ currentCurrency }})</th>
       <th (click)="sortTable('supply')">Supply</th>
-      <th>graph</th>
+      <th>Graph</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let crypto of filteredCryptocurrencies">
+    <tr *ngFor="let crypto of filteredCryptocurrencies" [ngClass]="{'dark-theme': theme === 'dark'}">
       <td>{{ crypto.name }}</td>
       <td>{{ crypto.symbol }}</td>
       <td>{{ convertValue(crypto.price) | currency:currentCurrency:'symbol':'1.2-2' }}</td>
       <td>{{ convertValue(crypto.marketCap) | currency:currentCurrency:'symbol':'1.0-0' }}</td>
       <td>{{ crypto.supply | number }}</td>
       <td>
-        <!-- <kendo-chart style="width: 300px; height: 200px;"> -->
-          
-          <kendo-sparkline class="charts"[data]="data" type="area"> </kendo-sparkline>
-        <!-- </kendo-chart> -->
+        <kendo-sparkline [data]="data" type="area"> </kendo-sparkline>
       </td>
     </tr>
   </tbody>
