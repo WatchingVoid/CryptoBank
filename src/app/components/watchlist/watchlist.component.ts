@@ -70,6 +70,7 @@ export class WatchlistComponent implements OnInit {
     });
     this.themeService.getTheme().subscribe(theme => {
       this.theme = theme;
+      console.log(theme)
     });
   }
   

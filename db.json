@@ -1,11 +1,11 @@
 {
   "wallet": {
-    "totalValue": 100008,
+    "totalValue": 101251,
     "currency": "RUB",
     "tokens": [
       {
         "symbol": "BTC",
-        "amount": 8.5,
+        "amount": 18.5,
         "priceInRUB": 3000000
       },
       {
@@ -15,7 +15,7 @@
       },
       {
         "symbol": "XRP",
-        "amount": 5000,
+        "amount": 6233,
         "priceInRUB": 50
       }
     ]
@@ -92,6 +92,97 @@
       "amount": 1,
       "type": "buy",
       "date": "2024-08-20T09:03:36.507Z"
+    },
+    {
+      "id": "2a34",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:00.463Z"
+    },
+    {
+      "id": "86cf",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:06.524Z"
+    },
+    {
+      "id": "36f4",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:07.438Z"
+    },
+    {
+      "id": "44f8",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:07.890Z"
+    },
+    {
+      "id": "3548",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:08.234Z"
+    },
+    {
+      "id": "43b7",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:08.706Z"
+    },
+    {
+      "id": "f4af",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:09.139Z"
+    },
+    {
+      "id": "3124",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:09.602Z"
+    },
+    {
+      "id": "ad73",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:10.042Z"
+    },
+    {
+      "id": "98da",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T03:53:13.851Z"
+    },
+    {
+      "id": "c35d",
+      "token": "XRP",
+      "amount": 1,
+      "type": "sell",
+      "date": "2024-08-21T10:52:58.280Z"
+    },
+    {
+      "id": "d427",
+      "token": "XRP",
+      "amount": 0,
+      "type": "sell",
+      "date": "2024-08-21T10:53:04.026Z"
+    },
+    {
+      "id": "652d",
+      "token": "XRP",
+      "amount": 1234,
+      "type": "buy",
+      "date": "2024-08-21T10:53:07.465Z"
     }
   ]
 }

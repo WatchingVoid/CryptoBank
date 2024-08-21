@@ -9,7 +9,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
   th {
-    background-color: #4CAF50; /* Зеленый */
+    background-color: #4CAF50; 
     color: #fff;
     padding: 15px;
     cursor: pointer;
@@ -31,12 +31,12 @@
 }
 
 /* Стили для темной темы */
-body.dark-theme .watchlist-table {
-  background-color: #333333;
+.dark-theme .watchlist-table {
+  background-color: #333333 !important;
   color: #ffffff;
 
   th {
-    background-color: #7B1FA2; /* Фиолетовый */
+    background-color: #7B1FA2 !important;
     color: #ffffff;
   }
 
@@ -44,11 +44,11 @@ body.dark-theme .watchlist-table {
     color: #ffffff;
   }
 
-  tbody tr:nth-child(even) {
-    background-color: #444444;
+  tr:nth-child(even) {
+    background-color: #444444 !important;
   }
 
-  tbody tr:hover {
-    background-color: #555555;
+ tr:hover {
+    background-color: #555555 !important;
   }
 }

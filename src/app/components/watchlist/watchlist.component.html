@@ -1,7 +1,7 @@
 <h2 class="title">Cryptocurrency Watchlist</h2>
 <app-search (searchChange)="onSearchChange($event)"></app-search>
 
-<table class="watchlist-table">
+<table class="watchlist-table" [ngClass]="{'dark-theme': theme == 'dark'}">
   <thead>
     <tr>
       <th (click)="sortTable('name')">Name</th>
@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let crypto of filteredCryptocurrencies" [ngClass]="{'dark-theme': theme === 'dark'}">
+    <tr *ngFor="let crypto of filteredCryptocurrencies">
       <td>{{ crypto.name }}</td>
       <td>{{ crypto.symbol }}</td>
       <td>{{ convertValue(crypto.price) | currency:currentCurrency:'symbol':'1.2-2' }}</td>

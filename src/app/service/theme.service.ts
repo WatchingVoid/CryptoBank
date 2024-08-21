@@ -25,6 +25,6 @@ export class ThemeService {
   }
 
   private applyTheme(theme: string): void {
-    document.body.classList.toggle('dark-theme', theme === 'dark');
+    document.body.classList.toggle('dark-theme', theme == 'dark');
   }
 }
