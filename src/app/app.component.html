@@ -1,21 +1,20 @@
+<!-- src/app/app.component.html -->
 <header class="header">
   <app-currency-switcher></app-currency-switcher>
   <button (click)="toggleTheme()">Toggle Theme</button>
 </header>
 
-<div class="main-layout">
-  <div class="sidebar">
+<div class="main-layout" [ngClass]="theme">
+  <div class="sidebar" [ngClass]="theme">
     <button [routerLink]="[{ outlets: { panel: ['dashboard'] } }]" routerLinkActive="active">Dashboard</button>
     <button [routerLink]="[{ outlets: { panel: ['wallet'] } }]" routerLinkActive="active">Wallet</button>
-    
   </div>
 
-  <div class="content scroll">
+  <div class="content" [ngClass]="theme">
     <router-outlet></router-outlet>  <!-- WatchlistComponent будет отображаться здесь -->
   </div>
 
-  <div class="panel">
+  <div class="panel" [ngClass]="theme">
     <router-outlet name="panel"></router-outlet> <!-- Правый outlet для Dashboard и Wallet -->
   </div>
-  
 </div>

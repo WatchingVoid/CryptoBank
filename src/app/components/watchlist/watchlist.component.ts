@@ -88,18 +88,26 @@ export class WatchlistComponent implements OnInit {
     const direction = this.sortDirection ? 1 : -1;
 
     this.filteredCryptocurrencies.sort((a, b) => {
-      const valueA = this.convertValue(a[this.sortColumn]);
-      const valueB = this.convertValue(b[this.sortColumn]);
+        let valueA, valueB;
 
-      if (valueA > valueB) {
-        return direction;
-      } else if (valueA < valueB) {
-        return -direction;
-      } else {
-        return 0;
-      }
+        if (typeof a[this.sortColumn] === 'string') {
+            valueA = a[this.sortColumn].toString().toLowerCase();
+            valueB = b[this.sortColumn].toString().toLowerCase();
+        } else {
+            valueA = this.convertValue(a[this.sortColumn]);
+            valueB = this.convertValue(b[this.sortColumn]);
+        }
+
+        if (valueA > valueB) {
+            return direction;
+        } else if (valueA < valueB) {
+            return -direction;
+        } else {
+            return 0;
+        }
     });
-  }
+}
+
 
   convertValue(value:any): number {
     return this.currencyService.convertValue(value, this.currentCurrency);

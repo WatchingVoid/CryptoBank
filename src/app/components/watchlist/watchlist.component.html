@@ -1,7 +1,8 @@
+<!-- watchlist.component.html -->
 <h2 class="title">Cryptocurrency Watchlist</h2>
 <app-search (searchChange)="onSearchChange($event)"></app-search>
 
-<table class="watchlist-table" [ngClass]="{'dark-theme': theme == 'dark'}">
+<table class="watchlist-table" [ngClass]="{'dark-theme': theme === 'dark', 'light-theme': theme === 'light'}">
   <thead>
     <tr>
       <th (click)="sortTable('name')">Name</th>

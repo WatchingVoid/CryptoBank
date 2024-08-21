@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeService } from './service/theme.service';
 
 @Component({
@@ -6,12 +6,19 @@ import { ThemeService } from './service/theme.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  theme: string = 'light';
   constructor(private themeService: ThemeService) {}
 
-  toggleTheme() {
+  ngOnInit(): void {
+    this.themeService.getTheme().subscribe(theme => {
+      this.theme = theme;
+      document.body.className = '';  // Убираем все классы
+      document.body.classList.add(this.theme);  // Добавляем текущую тему
+    });
+  }
+  toggleTheme(): void {
     this.themeService.toggleTheme();
   }
-
   
 }

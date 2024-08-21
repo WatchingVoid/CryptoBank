@@ -1,16 +1,16 @@
 {
   "wallet": {
-    "totalValue": 101251,
+    "totalValue": 101264,
     "currency": "RUB",
     "tokens": [
       {
         "symbol": "BTC",
-        "amount": 18.5,
+        "amount": 27.5,
         "priceInRUB": 3000000
       },
       {
         "symbol": "ETH",
-        "amount": 10,
+        "amount": 14,
         "priceInRUB": 200000
       },
       {
@@ -22,7 +22,7 @@
   },
   "transactions": [
     {
-      "id": 1,
+      "id": "1",
       "token": "BTC",
       "amount": 0.1,
       "type": "buy",
@@ -30,7 +30,7 @@
       "priceInRUB": 300000
     },
     {
-      "id": 2,
+      "id": "2",
       "token": "ETH",
       "amount": 2,
       "type": "buy",
@@ -183,6 +183,97 @@
       "amount": 1234,
       "type": "buy",
       "date": "2024-08-21T10:53:07.465Z"
+    },
+    {
+      "id": "5a3d",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:18.087Z"
+    },
+    {
+      "id": "eb4f",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:43.962Z"
+    },
+    {
+      "id": "25a1",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:44.456Z"
+    },
+    {
+      "id": "3a08",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:44.817Z"
+    },
+    {
+      "id": "5e19",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:45.216Z"
+    },
+    {
+      "id": "11de",
+      "token": "ETH",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:49.725Z"
+    },
+    {
+      "id": "8e8c",
+      "token": "ETH",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:50.208Z"
+    },
+    {
+      "id": "5dca",
+      "token": "ETH",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:50.490Z"
+    },
+    {
+      "id": "edd9",
+      "token": "ETH",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:44:50.661Z"
+    },
+    {
+      "id": "5590",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T20:46:41.336Z"
+    },
+    {
+      "id": "faa4",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T21:03:31.858Z"
+    },
+    {
+      "id": "2ed9",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T21:03:32.445Z"
+    },
+    {
+      "id": "8bdb",
+      "token": "BTC",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-21T21:03:32.826Z"
     }
   ]
 }
