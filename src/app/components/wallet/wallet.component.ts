@@ -71,9 +71,18 @@ export class WalletComponent implements OnInit {
     }
 
   onSearchTokens(searchTerm: string): void {
+    console.log(searchTerm)
     if (this.wallet) {
-      this.filteredTokens = this.wallet.tokens.filter(token =>
-        token.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+      this.filteredTokens = this.wallet.tokens.filter(token =>{
+        let result = false;
+       /* console.log(this.selectedToken, token.symbol.toLowerCase().includes(searchTerm.toLowerCase()), token.symbol)
+        if(token.symbol.toLowerCase().includes(searchTerm.toLowerCase()) && this.filteredTokens['Symbol'].includes(searchTerm.toLowerCase())) this.selectedToken = token.symbol;*/
+         if(token.symbol.toLowerCase().includes(searchTerm.toLowerCase())){
+          this.selectedToken = token.symbol;
+          result = !result
+        }
+        return result
+      }
       );
     }
   }

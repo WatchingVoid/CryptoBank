@@ -1,6 +1,6 @@
 {
   "wallet": {
-    "totalValue": 101264,
+    "totalValue": 101265,
     "currency": "RUB",
     "tokens": [
       {
@@ -15,7 +15,7 @@
       },
       {
         "symbol": "XRP",
-        "amount": 6233,
+        "amount": 6234,
         "priceInRUB": 50
       }
     ]
@@ -274,6 +274,13 @@
       "amount": 1,
       "type": "buy",
       "date": "2024-08-21T21:03:32.826Z"
+    },
+    {
+      "id": "65f7",
+      "token": "XRP",
+      "amount": 1,
+      "type": "buy",
+      "date": "2024-08-22T05:09:03.258Z"
     }
   ]
 }
